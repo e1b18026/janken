@@ -1,29 +1,37 @@
 package oit.is.z0146.kaizi.janken.controller;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//import oit.is.z0146.kaizi.janken.model.Room;
+
 @Controller
+@RequestMapping("/lec02")
 public class Lec02Controller {
 
   /**
    * lec02というGETリクエストがあったら，lec02()を呼び出して，lec02.htmlを返すメソッド
    *
-   * @return
-   */
-  @GetMapping("/lec02")
+   * @retur
+   *
+   * */
+
+  @GetMapping("step1")
   public String lec02() {
     return "lec02.html";
   }
 
-  @GetMapping("/index")
-  public String index() {
-    return "index.html";
-  }
+  //@GetMapping("/index")
+  //public String index() {
+  //  return "index.html";
+  //}
 
   /**
    * クエリパラメータの引数2つを受け付ける URLでの?のあとのパラメータ名とjavaメソッドの引数名は同じであることが望ましい(別にする方法は一応ある)
