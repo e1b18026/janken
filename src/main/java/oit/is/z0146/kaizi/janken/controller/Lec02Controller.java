@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import oit.is.z0146.kaizi.janken.model.Room;
+import oit.is.z0146.kaizi.janken.model.Entry;
 
 @Controller
 @RequestMapping("/lec02")
 public class Lec02Controller {
+
+  @Autowired
+  private Entry room;
 
   /**
    * lec02というGETリクエストがあったら，lec02()を呼び出して，lec02.htmlを返すメソッド
@@ -23,8 +26,29 @@ public class Lec02Controller {
    *
    * */
 
+  /**
+   *
+   * @param model Thymeleafにわたすデータを保持するオブジェクト
+   * @param prin  ログインユーザ情報が保持されるオブジェクト
+   * @return
+   */
+
   @GetMapping("step1")
-  public String lec02() {
+  //public String lec02() {
+  //  return "lec02.html";
+  //}
+
+  //public String lec02(ModelMap model, Principal prin) {
+  //  String loginUser = prin.getName(); // ログインユーザ情報
+  //  model.addAttribute("login_user", loginUser);
+  //  return "lec02.html";
+  //}
+
+  public String lec02(Principal prin, ModelMap model) {
+    String loginUser = prin.getName();
+    this.room.addUser(loginUser);
+    model.addAttribute("room", this.room);
+
     return "lec02.html";
   }
 
