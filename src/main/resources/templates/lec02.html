@@ -7,9 +7,19 @@
 </head>
 
 <body>
-  <div th:if="${namae}">
-    Hi [[${namae}]]
+  <a href="/logout">ログアウト</a>
+  <h1>Lec02 GET!</h1>
+  <a>エントリー</a><br>
+  <div th:if="${room}">
+    <ul>
+      <!--eachは所謂for each．この場合roomオブジェクトのusersフィールドにあるすべてのデータを一通り表示する
+        thが指定されているので[]が不要になる-->
+      <li th:each="user : ${room.users}">[[${user}]]</li>
+    </ul>
   </div>
+  <!--<div th:if="${login_User}">-->
+  Hi [[${room.users.get(room.num)}]]
+  <!--</div>-->
   <p>
     <a href="./lec02janken?hand=Gu">グー</a>
     <a href="./lec02janken?hand=Tyoki">チョキ</a>
