@@ -1,23 +1,72 @@
 package oit.is.z0146.kaizi.janken.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import oit.is.z0146.kaizi.janken.model.Entry;
+//import oit.is.z0146.kaizi.janken.model.Entry;
+import oit.is.z0146.kaizi.janken.model.User;
+import oit.is.z0146.kaizi.janken.model.UserMapper;
+import oit.is.z0146.kaizi.janken.model.Match;
+import oit.is.z0146.kaizi.janken.model.MatchMapper;
 
 @Controller
 @RequestMapping("/lec02")
 public class Lec02Controller {
 
   @Autowired
-  private Entry room;
+  //private Entry room;
+  UserMapper userMapper;
+  @Autowired
+  MatchMapper matchMapper;
+
+   /**
+   * 指定したidをPATHパラメータで受け取り，そのidに対応するデータを取得して返す
+   *
+   * @param id
+   * @param model
+   * @param prin
+   * @return
+   */
+  @GetMapping("step1/{id}")
+  public String lec02(@PathVariable Integer id, ModelMap model, Principal prin) {
+    //Match match = matchMapper.selectById(id);
+    ArrayList<Match> match = matchMapper.selectAllById(id);
+    //User chamber2 = userMapper.selectById(id);
+    ArrayList<User> chamber2 = userMapper.selectAllById(id);
+    String loginUser = prin.getName(); // ログインユーザ情報
+    model.addAttribute("login_user", loginUser);
+    model.addAttribute("match", match);
+    model.addAttribute("chamber2", chamber2);
+
+    return "lec02.html";
+  }
+
+  /**
+  * @param id
+  * @param model
+  * @param prin
+  * @return
+  */
+
+  @GetMapping("/match")
+  public String lec02_1(@RequestParam Integer id, ModelMap model, Principal prin) {
+    User user2 = userMapper.selectById(id);
+    String loginUser = prin.getName(); // ログインユーザ情報
+    model.addAttribute("login_user", loginUser);
+    model.addAttribute("user2", user2);
+
+    return "match.html";
+  }
 
   /**
    * lec02というGETリクエストがあったら，lec02()を呼び出して，lec02.htmlを返すメソッド
@@ -26,14 +75,14 @@ public class Lec02Controller {
    *
    * */
 
-  /**
-   *
-   * @param model Thymeleafにわたすデータを保持するオブジェクト
-   * @param prin  ログインユーザ情報が保持されるオブジェクト
-   * @return
-   */
+  ///**
+  // *
+  // * @param model Thymeleafにわたすデータを保持するオブジェクト
+  // * @param prin  ログインユーザ情報が保持されるオブジェクト
+  // * @return
+  // */
 
-  @GetMapping("step1")
+  ///@GetMapping("step1")
   //public String lec02() {
   //  return "lec02.html";
   //}
@@ -44,13 +93,13 @@ public class Lec02Controller {
   //  return "lec02.html";
   //}
 
-  public String lec02(Principal prin, ModelMap model) {
-    String loginUser = prin.getName();
-    this.room.addUser(loginUser);
-    model.addAttribute("room", this.room);
+  ///public String lec02(Principal prin, ModelMap model) {
+  ///  String loginUser = prin.getName();
+  ///  this.room.addUser(loginUser);
+  ///  model.addAttribute("room", this.room);
 
-    return "lec02.html";
-  }
+  ///  return "lec02.html";
+  ///}
 
   //@GetMapping("/index")
   //public String index() {
@@ -80,7 +129,7 @@ public class Lec02Controller {
     model.addAttribute("hand", hand);
     // ModelMap型変数のmodelにtasuResult2という名前の変数で，tasuResultの値を登録する．
     // ここで値を登録するとthymeleafが受け取り，htmlで処理することができるようになる
-    return "lec02.html";
+    return "match.html";
 
   }
 

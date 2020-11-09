@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/schema/security">
+
+<head>
+  <meta charset="utf-8">
+  <title>Janken Match</title>
+</head>
+
+<body>
+  <a href="/logout">ログアウト</a>
+  <h1>Match</h1>
+  <h1>[[${login_user}]] V.S. [[${user2.name}]]</h1>
+
+  <p>
+    <a href="./lec02janken?hand=Gu">グー</a>
+    <a href="./lec02janken?hand=Tyoki">チョキ</a>
+    <a href="./lec02janken?hand=Pa">パー</a>
+  </p>
+  <p>
+    <!--th:ifと書くと条件文を表す．この例の場合，kakeruResultが
+        返ってきたとき(nullでないとき)だけdivを表示する
+      th:ifのようなthymeleafの変数であることを示している場合は"["で囲まなくて良い-->
+  <div th:if="${JankenResult}">
+    <div th:if="${hand}">
+      あなたの手 [[${hand}]]
+      <p>相手の手 Gu</p>
+      <p>結果 [[${JankenResult}]]</p>
+    </div>
+  </div>
+  </p>
+
+  <a href="/lec02">もどる</a>
+
+</body>
+
+</html>

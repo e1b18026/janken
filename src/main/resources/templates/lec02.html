@@ -9,35 +9,22 @@
 <body>
   <a href="/logout">ログアウト</a>
   <h1>Lec02 GET!</h1>
-  <a>エントリー</a><br>
-  <div th:if="${room}">
+  Hi [[${login_user}]]
+  <h1>エントリー</h1>
+  <div th:if="${chamber2}">
     <ul>
-      <!--eachは所謂for each．この場合roomオブジェクトのusersフィールドにあるすべてのデータを一通り表示する
-        thが指定されているので[]が不要になる-->
-      <li th:each="user : ${room.users}">[[${user}]]</li>
+      <li th:each="chamber2 : ${chamber2}"><a th:href="@{./match(id=${chamber2.id})}">[[${chamber2.name}]]</a></li>
     </ul>
   </div>
-  <!--<div th:if="${login_User}">-->
-  Hi [[${room.users.get(room.num)}]]
-  <!--</div>-->
-  <p>
-    <a href="./lec02janken?hand=Gu">グー</a>
-    <a href="./lec02janken?hand=Tyoki">チョキ</a>
-    <a href="./lec02janken?hand=Pa">パー</a>
-  </p>
-  <p>
-    <!--th:ifと書くと条件文を表す．この例の場合，kakeruResultが
-        返ってきたとき(nullでないとき)だけdivを表示する
-      th:ifのようなthymeleafの変数であることを示している場合は"["で囲まなくて良い-->
-  <div th:if="${JankenResult}">
-    <div th:if="${hand}">
-      あなたの手 [[${hand}]]
-      <p>相手の手 Gu</p>
-      <p>結果 [[${JankenResult}]]</p>
-    </div>
-  </div>
-  </p>
 
+  <h1>試合結果</h1>
+  <div th:each="match,stat:${match}">
+    ID:[[${match.id}]]
+    user_1:[[${match.user_1}]]
+    user_2:[[${match.user_2}]]
+    user_1の手:[[${match.user_1_hand}]]
+    user_2の手:[[${match.user_2_hand}]]
+  </div>
 
 
 </body>
